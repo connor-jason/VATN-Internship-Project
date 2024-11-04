@@ -183,15 +183,27 @@ We will use **Tailwind CSS** for styling and ensure the UI is intuitive and visu
    - Indicates Atak system connection status.
    - Uses green/red icons or text to show connection status.
 
-#### User Stories and Interfaces:
+#### User Stories:
 
-- **US1**: NavSat component addresses the need to view the vessel's current position.
-- **US2**: VehicleOdom component allows operators to see orientation and depth.
-- **US3**: SystemStatus component provides system autonomy and mission status.
-- **US4**: INSstatus component helps monitor INS status.
-- **US5**: AtakStatus component shows connection status.
-- **US6 & US7**: Application maintains state and updates data automatically.
-- **US8**: Data presented with clear visuals using charts and graphs.
+**Navigation Monitoring**
+- US1: As a vessel operator, I want to view the vessel's current position (latitude and longitude) on a map so that I can monitor its location in real-time.
+
+- US2: As a vessel operator, I want to see the vessel's heading, pitch, roll, and depth displayed with intuitive gauges and indicators to understand its orientation and depth status.
+
+**System Status Overview**
+- US3: As a technician, I want to view the system's autonomy state, mission status, and awake status to assess the vessel's operational readiness.
+
+- US4: As a technician, I want to monitor the Inertial Navigation System (INS) status, including alignment and position validity, to diagnose potential navigation issues.
+
+**Connection Status**
+- US5: As a user, I want to see the connection status of the Atak system to be aware of any connectivity issues.
+Data Persistence and Updates
+- US6: As a user, I want the application to maintain state across page refreshes so that I don't lose any critical information.
+
+- US7: As a user, I want the data to update automatically at their specified rates without manual refreshing so that I always have the most current information.
+
+**Visual Clarity**
+- US8: As a user, I want the data presented with clear visuals like graphs, charts, and bars where appropriate so that I can quickly interpret the information.
 
 # 4. GitHub Issues
 
