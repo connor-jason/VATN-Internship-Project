@@ -1,6 +1,7 @@
+import 'leaflet/dist/leaflet.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css'; // Ensure this line is present
+import './index.css';
 import App from './App';
 
 ReactDOM.render(<App />, document.getElementById('root'));

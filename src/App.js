@@ -29,7 +29,7 @@ function App() {
   const initialINSstatus = {
     aligned: true,
     pos_valid: false,
-    heading_valid: false,
+    heading_valid: true,
     dvl_recv: true,
     dvl_used: false,
     lat_accuracy: 456.654,
@@ -52,15 +52,15 @@ function App() {
   const [sysstat] = useState(initialSystemStatus);
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 bg-darkGray">
       <h1 className="text-2xl font-bold mb-4">
         Vessel Autonomy System Dashboard
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <VehicleOdom data={odom} />
+        <SystemStatus data={sysstat} />
         <NavSat data={gps} />
         <INSstatus data={ins} />
-        <SystemStatus data={sysstat} />
+        <VehicleOdom data={odom} />
         <AtakStatus data={atak} />
       </div>
     </div>
