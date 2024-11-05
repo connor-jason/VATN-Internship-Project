@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import VehicleOdom from './components/VehicleOdom';
-import AtakStatus from './components/AtakStatus';
 import NavSat from './components/NavSat';
 import INSstatus from './components/INSstatus';
 import SystemStatus from './components/SystemStatus';
+import AtakStatus from './components/AtakStatus';
+import logo from './assets/vatn-logo.png';
 
 function App() {
-  // Initial data
+  // Initial data remains the same
   const initialVehicleOdom = {
     northing: 10.0,
     easting: 655432.21635,
@@ -52,16 +53,37 @@ function App() {
   const [sysstat] = useState(initialSystemStatus);
 
   return (
-    <div className="container mx-auto p-4 bg-darkGray">
-      <h1 className="text-2xl font-bold mb-4">
-        Vessel Autonomy System Dashboard
-      </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <SystemStatus data={sysstat} />
-        <NavSat data={gps} />
-        <INSstatus data={ins} />
-        <VehicleOdom data={odom} />
-        <AtakStatus data={atak} />
+    <div className="min-h-screen">
+      {/* Header Section */}
+      <header className="py-4 relative">
+        <div className="container mx-auto relative">
+          {/* Logo positioned absolutely */}
+          <img
+            src={logo}
+            alt="Company Logo"
+            className="h-12 absolute left-0 top-0"
+          />
+
+          {/* Title centered */}
+          <h1 className="text-2xl font-bold text-white text-center">
+            Vessel Autonomy System Dashboard
+          </h1>
+        </div>
+
+        {/* Atak Status centered below the header */}
+        <div className="container mx-auto flex justify-center mt-2">
+          <AtakStatus data={atak} />
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <div className="container mx-auto p-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <VehicleOdom data={odom} />
+          <INSstatus data={ins} />
+          <NavSat data={gps} />
+          <SystemStatus data={sysstat} />
+        </div>
       </div>
     </div>
   );
