@@ -1,24 +1,27 @@
 import React, { useState, useEffect } from 'react';
 
 const VehicleOdom = () => {
+  // Initialize state with data from localStorage or set to null if not available
   const [data, setData] = useState(() => {
     const saved = localStorage.getItem('odom');
     return saved ? JSON.parse(saved) : null;
   });
   const [error, setError] = useState(null);
 
+  // Fetch data from server (this won't work without access to the backend), then store in state and local storage
   useEffect(() => {
     const fetchData = () => {
       fetch('https://vatnsystems.com/VehicleOdom')
         .then((response) => {
           if (!response.ok) {
+            // Throw an error for a non-200 response
             throw new Error(`HTTP error! Status: ${response.status}`);
           }
           return response.json();
         })
         .then((newData) => {
           setData(newData);
-          localStorage.setItem('odom', JSON.stringify(newData));
+          localStorage.setItem('odom', JSON.stringify(newData)); // Use localstorage for data persistence
           setError(null);
         })
         .catch((err) => {
@@ -31,7 +34,7 @@ const VehicleOdom = () => {
 
     const interval = setInterval(fetchData, 200); // 5 Hz
 
-    return () => clearInterval(interval);
+    return () => clearInterval(interval); // Clean up on unmount
   }, []);
 
     // Calculations for visual elements
@@ -42,6 +45,7 @@ const VehicleOdom = () => {
   return (
     <div className="border p-4 m-2">
       <h2 className="text-xl font-bold mb-4">Vehicle Odom</h2>
+      {/* Display error if there is an error */}
       {error ? (
         <p>Error: {error}</p>
       ) : data ? (
@@ -60,7 +64,7 @@ const VehicleOdom = () => {
             </p>
           </div>
 
-          {/* Heading */}
+          {/* Heading Visualization */}
           <div className="flex items-center mb-4">
             {/* Heading Arrow */}
             <div

@@ -138,7 +138,7 @@ The application primarily uses React state and potentially local storage for mai
 
 #### Data Models:
 
-![DB Schema](image.png)
+![DB Schema](DBSchema.png)
 
 ### 3.2 Controller
 
