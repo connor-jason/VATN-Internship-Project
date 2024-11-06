@@ -24,6 +24,8 @@ const VehicleOdom = () => {
       setData((prev) => {
         const newData = {
           ...prev,
+          northing: prev.northing + Math.random() * 0.1 - 0.05,
+          easting: prev.easting + Math.random() * 0.1 - 0.05,
           heading: (prev.heading + Math.random() * 5 - 2.5) % 360,
           pitch: Math.max(-90, Math.min(90, prev.pitch + Math.random() * 2 - 1)),
           roll: Math.max(-90, Math.min(90, prev.roll + Math.random() * 2 - 1)),
