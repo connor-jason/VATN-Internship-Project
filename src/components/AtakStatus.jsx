@@ -1,22 +1,36 @@
 import React, { useState, useEffect } from 'react';
 
 const AtakStatus = () => {
-
   const [data, setData] = useState(() => {
     const saved = localStorage.getItem('atak');
-    return saved ? JSON.parse(saved) : { connected: true };
+    return saved ? JSON.parse(saved) : null;
   });
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setData((prev) => {
-        const newData = {
-          connected: Math.random() > 0.1,
-        };
-        localStorage.setItem('atak', JSON.stringify(newData));
-        return newData;
-      });
-    }, 1000); // 1000 ms
+    const fetchData = () => {
+      fetch('https://vatnsystems.com/AtakStatus')
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((newData) => {
+          setData(newData);
+          localStorage.setItem('atak', JSON.stringify(newData));
+          setError(null);
+        })
+        .catch((err) => {
+          console.error('Error fetching AtakStatus data:', err);
+          setError(err.message);
+        });
+    };
+
+    fetchData(); // Initial fetch
+
+    const interval = setInterval(fetchData, 1000); // 1 Hz
+
     return () => clearInterval(interval);
   }, []);
 
@@ -24,10 +38,16 @@ const AtakStatus = () => {
   const statusIcon = data.connected ? '✔️' : '❌';
 
   return (
-    <div className="flex items-center">
-      <span className="font-semibold text-white mr-2">Atak Status:</span>
-      <span className={`text-2xl ${statusColor}`}>{statusIcon}</span>
-    </div>
+      <div className="flex items-center">
+        <span className="font-semibold mr-2">Atak Status:</span>
+        {error ? (
+          <span className="text-red-400">Error: {error}</span>
+        ) : data ? (
+          <span className={`text-2xl ${statusColor}`}>{statusIcon}</span>
+        ) : (
+          <p>Loading...</p>
+        )}
+      </div>
   );
 };
 

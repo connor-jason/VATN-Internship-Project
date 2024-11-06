@@ -1,28 +1,36 @@
 import React, { useState, useEffect } from 'react';
 
 const NavSat = () => {
-
   const [data, setData] = useState(() => {
     const saved = localStorage.getItem('gps');
-    return saved
-      ? JSON.parse(saved)
-      : {
-          latitude: 54.211324,
-          longitude: 45.324341,
-        };
+    return saved ? JSON.parse(saved) : null;
   });
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setData((prev) => {
-        const newData = {
-          latitude: prev.latitude + (Math.random() * 0.0001 - 0.00005),
-          longitude: prev.longitude + (Math.random() * 0.0001 - 0.00005),
-        };
-        localStorage.setItem('gps', JSON.stringify(newData));
-        return newData;
-      });
-    }, 200); // 200 ms
+    const fetchData = () => {
+      fetch('https://vatnsystems.com/NavSat')
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((newData) => {
+          setData(newData);
+          localStorage.setItem('gps', JSON.stringify(newData));
+          setError(null);
+        })
+        .catch((err) => {
+          console.error('Error fetching NavSat data:', err);
+          setError(err.message);
+        });
+    };
+
+    fetchData(); // Initial fetch
+
+    const interval = setInterval(fetchData, 200); // 5 Hz
+
     return () => clearInterval(interval);
   }, []);
 
@@ -39,13 +47,21 @@ const NavSat = () => {
 
   return (
     <div className="border p-4 m-2">
-      <h2 className="text-xl font-bold mb-4">NavSat</h2>
-      <p className="font-semibold">
-        Latitude: <span className="font-normal">{latDegrees}° {latMinutes}' {latDirection}</span>
-      </p>
-      <p className="font-semibold">
-        Longitude: <span className="font-normal">{lonDegrees}° {lonMinutes}' {lonDirection}</span>
-      </p>
+      <h2 className="text-xl font-bold mb-2">NavSat</h2>
+      {error ? (
+        <p>Error: {error}</p>
+      ) : data ? (
+        <>
+          <p className="font-semibold">
+            Latitude: <span className="font-normal">{latDegrees}° {latMinutes}' {latDirection}</span>
+          </p>
+          <p className="font-semibold">
+            Longitude: <span className="font-normal">{lonDegrees}° {lonMinutes}' {lonDirection}</span>
+          </p>
+        </>
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
 };

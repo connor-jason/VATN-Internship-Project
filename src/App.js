@@ -13,21 +13,21 @@ function App() {
       <header className="py-4 relative">
         <div className="container mx-auto relative">
 
-          {/* Title centered in the header */}
+          {/* Title */}
           <h1 className="text-2xl font-bold text-white text-center pt-2">
             Autonomous Vessel System Dashboard
           </h1>
         </div>
 
-        {/* Atak Status centered below the header */}
+        {/* Atak Status below the header */}
         <div className="container mx-auto flex justify-center mt-2">
           <AtakStatus />
         </div>
       </header>
 
-      {/* Main Content */}
+      {/* Main dashboard content */}
       <div className="container mx-auto p-4">
-        {/* Grid layout for the main components */}
+        {/* Grid layout for the components */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <VehicleOdom />
           <INSstatus />
@@ -35,6 +35,7 @@ function App() {
           <SystemStatus />
         </div>
       </div>
+      
       {/* Footer Section */}
       <footer className="text-center p-4">
         <p>&copy; 2024 VATN Systems</p>
