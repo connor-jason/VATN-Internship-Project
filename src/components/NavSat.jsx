@@ -39,12 +39,12 @@ const NavSat = () => {
 
   return (
     <div className="border p-4 m-2">
-      <h2 className="text-xl font-bold mb-2">NavSat</h2>
-      <p>
-        Latitude: {latDegrees}° {latMinutes}' {latDirection}
+      <h2 className="text-xl font-bold mb-4">NavSat</h2>
+      <p className="font-semibold">
+        Latitude: <span className="font-normal">{latDegrees}° {latMinutes}' {latDirection}</span>
       </p>
-      <p>
-        Longitude: {lonDegrees}° {lonMinutes}' {lonDirection}
+      <p className="font-semibold">
+        Longitude: <span className="font-normal">{lonDegrees}° {lonMinutes}' {lonDirection}</span>
       </p>
     </div>
   );

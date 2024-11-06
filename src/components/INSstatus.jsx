@@ -44,10 +44,10 @@ const INSstatus = () => {
 
   return (
     <div className="border p-4 m-2">
-      <h2 className="text-xl font-bold mb-2">INS Status</h2>
+      <h2 className="text-xl font-bold mb-4">INS Status</h2>
       <div className="grid grid-cols-2 gap-2">
         <div>
-          <p>
+          <p className="font-semibold">
             Aligned:{' '}
             <span className={getStatus(data.aligned).color}>
               {getStatus(data.aligned).icon}
@@ -55,7 +55,7 @@ const INSstatus = () => {
           </p>
         </div>
         <div>
-          <p>
+          <p className="font-semibold">
             Position Valid:{' '}
             <span className={getStatus(data.pos_valid).color}>
               {getStatus(data.pos_valid).icon}
@@ -63,7 +63,7 @@ const INSstatus = () => {
           </p>
         </div>
         <div>
-          <p>
+          <p className="font-semibold">
             Heading Valid:{' '}
             <span className={getStatus(data.heading_valid).color}>
               {getStatus(data.heading_valid).icon}
@@ -71,7 +71,7 @@ const INSstatus = () => {
           </p>
         </div>
         <div>
-          <p>
+          <p className="font-semibold">
             DVL Received:{' '}
             <span className={getStatus(data.dvl_recv).color}>
               {getStatus(data.dvl_recv).icon}
@@ -79,7 +79,7 @@ const INSstatus = () => {
           </p>
         </div>
         <div>
-          <p>
+          <p className="font-semibold">
             DVL Used:{' '}
             <span className={getStatus(data.dvl_used).color}>
               {getStatus(data.dvl_used).icon}
@@ -87,9 +87,9 @@ const INSstatus = () => {
           </p>
         </div>
       </div>
-      <div className="mt-2">
-        <p>Latitude Accuracy: {data.lat_accuracy.toFixed(3)}</p>
-        <p>Longitude Accuracy: {data.lon_accuracy.toFixed(3)}</p>
+      <div className="mt-4">
+        <p className="font-semibold">Latitude Accuracy: <span className="font-normal">{data.lat_accuracy.toFixed(3)}</span></p>
+        <p className="font-semibold">Longitude Accuracy: <span className="font-normal">{data.lon_accuracy.toFixed(3)}</span></p>
       </div>
     </div>
   );

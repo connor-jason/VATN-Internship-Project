@@ -48,24 +48,24 @@ const SystemStatus = () => {
 
   return (
     <div className="border p-4 m-2">
-      <h2 className="text-xl font-bold mb-2">System Status</h2>
-      <p>
+      <h2 className="text-xl font-bold mb-4">System Status</h2>
+      <p className="font-semibold">
         Autonomy State:{' '}
-        <span className="font-semibold">
+        <span className="font-normal">
           {autonomyStates[data.autonomy_state]}
         </span>
       </p>
       <div className="grid grid-cols-2 gap-2 mt-2">
         <div>
-          <p>
-            Mission Loaded:{' '}
+          <p className="font-semibold">
+            Mission Loaded:{' '}           
             <span className={getStatus(data.mission_loaded).color}>
               {getStatus(data.mission_loaded).icon}
             </span>
           </p>
         </div>
         <div>
-          <p>
+          <p className="font-semibold">
             Mission Start:{' '}
             <span className={getStatus(data.mission_start).color}>
               {getStatus(data.mission_start).icon}
@@ -73,7 +73,7 @@ const SystemStatus = () => {
           </p>
         </div>
         <div>
-          <p>
+          <p className="font-semibold">
             Counting Down:{' '}
             <span className={getStatus(data.counting_down).color}>
               {getStatus(data.counting_down).icon}
@@ -81,7 +81,7 @@ const SystemStatus = () => {
           </p>
         </div>
         <div>
-          <p>
+          <p className="font-semibold">
             Awake:{' '}
             <span className={getStatus(data.awake).color}>
               {getStatus(data.awake).icon}
