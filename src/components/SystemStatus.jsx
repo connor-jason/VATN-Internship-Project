@@ -37,6 +37,7 @@ const SystemStatus = () => {
     return () => clearInterval(interval); // Clean up on unmount
   }, []);
 
+  // Autonomy States that may or may not exist (need to read VATN documentation)
   const autonomyStates = {
     0: 'Idle',
     1: 'Active',
@@ -45,6 +46,7 @@ const SystemStatus = () => {
     4: 'Completed',
   };
 
+  // Display status icon and color based on connection status
   const getStatus = (status) => ({
     color: status ? 'text-green-400' : 'text-red-400',
     icon: status ? '✔️' : '❌',
@@ -58,6 +60,7 @@ const SystemStatus = () => {
         <p>Error: {error}</p>
       ) : data ? (
         <>
+        {/* Display system status data */}
           <p className="font-semibold">
           Autonomy State:{' '}
           <span className="font-normal">
@@ -65,6 +68,7 @@ const SystemStatus = () => {
           </span>
         </p>
         <div className="grid grid-cols-2 gap-2 mt-2">
+          {/* Mission Loaded */}
           <div>
             <p className="font-semibold">
               Mission Loaded:{' '}           
@@ -73,6 +77,7 @@ const SystemStatus = () => {
               </span>
             </p>
           </div>
+          {/* Mission Start */}
           <div>
             <p className="font-semibold">
               Mission Start:{' '}
@@ -81,6 +86,7 @@ const SystemStatus = () => {
               </span>
             </p>
           </div>
+          {/* Counting Down */}
           <div>
             <p className="font-semibold">
               Counting Down:{' '}
@@ -89,6 +95,7 @@ const SystemStatus = () => {
               </span>
             </p>
           </div>
+          {/* Awake */}
           <div>
             <p className="font-semibold">
               Awake:{' '}
