@@ -77,8 +77,6 @@ The project uses the following major dependencies:
 
 - **React** - JavaScript library for building user interfaces.
 - **Tailwind CSS** - Utility-first CSS framework for styling.
-- **Chart.js** or **Recharts** - For data visualization (install as needed).
-- **Map Library** - Such as **Leaflet** or **Google Maps API** for map integration (install as needed).
 
 ## Available Scripts
 
