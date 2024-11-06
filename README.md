@@ -1,4 +1,4 @@
-# 🚢 VATN Project: Autonomous Vessel System Dashboard 📊
+# 🚢 VATN: Autonomous Vessel System Dashboard 📊
 
 This README provides instructions on how to set up and run the Vessel Autonomy System Dashboard project, along with an overview of its key features and design decisions that enhance usability, readability, and performance.
 
