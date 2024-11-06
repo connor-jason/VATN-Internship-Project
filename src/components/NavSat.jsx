@@ -1,6 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-const NavSat = ({ data }) => {
+const NavSat = () => {
+
+  const [data, setData] = useState(() => {
+    const saved = localStorage.getItem('gps');
+    return saved
+      ? JSON.parse(saved)
+      : {
+          latitude: 54.211324,
+          longitude: 45.324341,
+        };
+  });
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setData((prev) => {
+        const newData = {
+          latitude: prev.latitude + (Math.random() * 0.0001 - 0.00005),
+          longitude: prev.longitude + (Math.random() * 0.0001 - 0.00005),
+        };
+        localStorage.setItem('gps', JSON.stringify(newData));
+        return newData;
+      });
+    }, 200); // 200 ms
+    return () => clearInterval(interval);
+  }, []);
+
   const latitude = data.latitude;
   const longitude = data.longitude;
 

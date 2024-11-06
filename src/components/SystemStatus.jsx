@@ -1,6 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-const SystemStatus = ({ data }) => {
+const SystemStatus = () => {
+
+  const [data, setData] = useState(() => {
+    const saved = localStorage.getItem('sysstat');
+    return saved
+      ? JSON.parse(saved)
+      : {
+          autonomy_state: 2,
+          mission_loaded: true,
+          mission_start: false,
+          counting_down: false,
+          awake: true,
+        };
+  });
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setData((prev) => {
+        const newData = {
+          ...prev,
+          autonomy_state: (prev.autonomy_state + 1) % 5,
+          mission_loaded: Math.random() > 0.05,
+          mission_start: Math.random() > 0.5,
+          counting_down: Math.random() > 0.7,
+          awake: Math.random() > 0.05,
+        };
+        localStorage.setItem('sysstat', JSON.stringify(newData));
+        return newData;
+      });
+    }, 500); // 500 ms
+    return () => clearInterval(interval);
+  }, []);
+
   const getStatus = (status) => ({
     color: status ? 'text-green-500' : 'text-red-500',
     icon: status ? '✔' : '❌',

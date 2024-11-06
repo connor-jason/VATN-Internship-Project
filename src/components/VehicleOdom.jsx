@@ -1,6 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-const VehicleOdom = ({ data }) => {
+const VehicleOdom = () => {
+
+  // Load initial data from localStorage or use default values
+  const [data, setData] = useState(() => {
+    const saved = localStorage.getItem('odom');
+    return saved
+      ? JSON.parse(saved)
+      : {
+          northing: 10.0,
+          easting: 655432.21635,
+          zone: [19, 'T'],
+          depth: 15.0,
+          heading: 59.5,
+          pitch: 0.5,
+          roll: 0.32,
+        };
+  });
+
+  // Simulate data updates at 5 Hz (every 200 ms)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setData((prev) => {
+        const newData = {
+          ...prev,
+          heading: (prev.heading + Math.random() * 5 - 2.5) % 360,
+          pitch: Math.max(-90, Math.min(90, prev.pitch + Math.random() * 2 - 1)),
+          roll: Math.max(-90, Math.min(90, prev.roll + Math.random() * 2 - 1)),
+          depth: Math.max(0, prev.depth + Math.random() * 1 - 0.5),
+        };
+        localStorage.setItem('odom', JSON.stringify(newData));
+        return newData;
+      });
+    }, 200); // 200 ms
+    return () => clearInterval(interval);
+  }, []);
+
   // Calculations for visual elements
   const headingRotation = data.heading;
   const pitchPercentage = ((data.pitch + 90) / 180) * 100;
@@ -80,7 +115,7 @@ const VehicleOdom = ({ data }) => {
         <div className="w-full bg-gray-600 h-2 rounded">
           <div
             className="bg-indigo-400 h-2 rounded"
-            style={{ width: `${(data.depth / 100) * 100}%` }} // Assuming max depth of 100m
+            style={{ width: `${(data.depth / 100) * 100}%` }}
           ></div>
         </div>
       </div>

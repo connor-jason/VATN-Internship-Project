@@ -1,6 +1,42 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-const INSstatus = ({ data }) => {
+const INSstatus = () => {
+
+  const [data, setData] = useState(() => {
+    const saved = localStorage.getItem('ins');
+    return saved
+      ? JSON.parse(saved)
+      : {
+          aligned: true,
+          pos_valid: false,
+          heading_valid: true,
+          dvl_recv: true,
+          dvl_used: false,
+          lat_accuracy: 456.654,
+          lon_accuracy: 854645.646,
+        };
+  });
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setData((prev) => {
+        const newData = {
+          ...prev,
+          aligned: Math.random() > 0.1,
+          pos_valid: Math.random() > 0.1,
+          heading_valid: Math.random() > 0.1,
+          dvl_recv: Math.random() > 0.1,
+          dvl_used: Math.random() > 0.5,
+          lat_accuracy: prev.lat_accuracy + Math.random() * 10 - 5,
+          lon_accuracy: prev.lon_accuracy + Math.random() * 10 - 5,
+        };
+        localStorage.setItem('ins', JSON.stringify(newData));
+        return newData;
+      });
+    }, 1000); // 1000 ms
+    return () => clearInterval(interval);
+  }, []);
+
   const getStatus = (status) => ({
     color: status ? 'text-green-500' : 'text-red-500',
     icon: status ? '✔' : '❌',
